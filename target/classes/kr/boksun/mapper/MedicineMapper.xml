@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.boksun.mapper.MedicineMapper">
+    
+    <insert id="mediBoxInsert" parameterType="kr.boksun.mapper.MedicineVO">
+        insert into t_medicine values(#{user_id}, #{med_box}, #{med_name}, #{med_hosp},
+        #{med_way}, #{med_times}, #{med_date}, #{med_alarm}, sysdate, #{med_memo}, #{med_serial}) 
+        where user_id=#{user_id} and med_box=#{med_box};
+    </insert>
+    
+    
+    
+</mapper>
