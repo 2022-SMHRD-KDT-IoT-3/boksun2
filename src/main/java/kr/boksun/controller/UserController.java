@@ -1,8 +1,11 @@
 package kr.boksun.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,44 +19,28 @@ public class UserController {
 
 	@Inject
 	private UserMapper mapper;
-	
-	/*
-	 * // 회원가입 선택(장애인, 복지사) 페이지
-	 * 
-	 * @RequestMapping("/join.do") public void join() {
-	 * System.out.println("회원가입 페이지 이동"); }
-	 * 
-	 * // 장애인 회원가입 페이지
-	 * 
-	 * @RequestMapping("/joinUser.do") public void joinUser() {
-	 * System.out.println("장애인 회원가입 페이지"); }
-	 */
-	
+
 	// 장애인 아이디 중복 체크
 	@RequestMapping("/idCheckUser.do")
-	public @ResponseBody UserVO idCheckUser(String id) {
+	public @ResponseBody UserVO idCheckUser(String user_id) {
 		System.out.println("장애인 아이디 중복체크");
-		UserVO vo = mapper.idCheckUser(id);
+		UserVO vo = mapper.idCheckUser(user_id);
 		return vo;
 	}
 
 	// 장애인 회원가입 요청
 	@RequestMapping("/joinUserInsert.do")
-	public String joinUserInsert(UserVO vo) {
+	public String joinUserInsert(UserVO vo, HttpServletResponse response) throws IOException {
 		System.out.println("장애인 회원가입 요청");
 		System.out.println(vo.toString());
 		mapper.joinUserInsert(vo);
 		
-		return "User_insert_succeed";
+		PrintWriter out = response.getWriter();
+		out.print("join_user_succeed");
+
+		return null;
 	}
-	
-	/*
-	 * // 로그인 페이지
-	 * 
-	 * @RequestMapping("/login.do") public void login() {
-	 * System.out.println("로그인 페이지 이동"); }
-	 */
-	
+
 	// 장애인 로그인 조회
 	@RequestMapping("/loginUserSelect.do")
 	public @ResponseBody UserVO loginUserSelect(UserVO vo) {
@@ -61,13 +48,40 @@ public class UserController {
 		UserVO info = mapper.loginUserSelect(vo);
 		return info;
 	}
-	
+
 	// 장애인 전체 목록
-	@RequestMapping("/userList.do")
-	public @ResponseBody List<UserVO> userList() {
-		System.out.println("장애인 목록 비동기 통신!");
-		List<UserVO> list = mapper.userList();
-		
-		return list;
+	 @RequestMapping("/userList.do") 
+	 public @ResponseBody List<UserVO> userList(String worker_id) { 
+		 System.out.println("장애인 목록 비동기 통신!");
+		 List<UserVO> list = mapper.userList(worker_id); 
+		 
+		 System.out.println(worker_id);
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).toString());
+		}
+		 return list; 
+	  }
+	 
+	// 장애인 선택 조회
+	 @RequestMapping("/userChoice.do")
+	 public @ResponseBody UserVO userChoice(String user_id) {
+			System.out.println("장애인 선택 조회");
+			UserVO info = mapper.userChoice(user_id);
+			return info;
 	}
+	 
+	
+	// 시리얼 번호 회원가입
+	 @RequestMapping("/serialJoin.do")
+		public String serialJoin(UserVO vo, HttpServletResponse response) throws IOException {
+			System.out.println("시리얼 가입 요청");
+			mapper.serialJoin(vo);
+			
+			PrintWriter out = response.getWriter();
+			out.print("join_serial_succeed");
+			return null;
+		}
+
+	 
+
 }
