@@ -9,33 +9,31 @@
     <insert id="joinUserInsert" parameterType="kr.boksun.mapper.UserVO">
         <choose>
             <when test="worker_id != null"> <!-- 복지사가 장애인 등록 -->
-                insert into t_user(user_id, user_pw, user_name, user_birthdate, user_gender, 
-                					user_joindate, user_addr, user_phone, worker_id) 
-       			values(#{user_id}, #{user_pw}, #{user_name}, #{user_birthdate}, #{user_gender},
-       								#{user_joindate}, #{user_addr}, #{user_phone}, ${worker_id})
+                insert into t_user(user_id, user_name, user_birthdate, user_gender, 
+                					user_joindate, user_addr, user_phone, worker_id, user_empn) 
+       			values(#{user_id}, #{user_name}, #{user_birthdate}, #{user_gender},
+       								#{user_joindate}, #{user_addr}, #{user_phone}, ${worker_id}, #{user_empn})
             </when>
             <when test="worker_id == null"> <!-- 장애인이 직접 회원가입  -->
-                insert into t_user(user_id, user_pw, user_name, user_birthdate, user_gender) 
-       			values(#{user_id}, #{user_pw}, #{user_name}, #{user_birthdate}, #{user_gender})
+                insert into t_user(user_id, user_name, user_empn) 
+       			values(#{user_id}, #{user_name}, #{user_empn})
             </when>
         </choose>
     </insert>
     
     <select id="loginUserSelect" parameterType="kr.boksun.mapper.UserVO" resultType="kr.boksun.mapper.UserVO">
-        select * from t_user where user_id = #{user_id} and user_pw = #{user_pw}
+        select * from t_user where user_id = #{user_id}
     </select>
     
     <select id="userList" parameterType="String" resultType="kr.boksun.mapper.UserVO">
         select * from t_user where worker_id = #{worker_id}
     </select>
     
-    
+    <!-- 장애인 목록에서 장애인 선택 -->
     <select id="userChoice" parameterType="String" resultType="kr.boksun.mapper.UserVO">
         select * from t_user where user_id = #{user_id}
     </select>
     
-    <insert id="serialJoin" parameterType="kr.boksun.mapper.UserVO">
-        insert into t_user(user_id, user_pw) values(#{user_id}, #{user_pw})
-    </insert>
-   
+    
+  
 </mapper>

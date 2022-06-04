@@ -5,14 +5,10 @@
 	<!-- 장애인이 직접 등록 -->
     <update id="mediBoxUpdate" parameterType="kr.boksun.mapper.MedicineVO">
         update t_medicine 
-        set med_name=#{med_name}, med_alarm=
+        set med_name=#{med_name}, med_alarm=#{med_alarm}
 		where user_id=#{user_id} and med_box=#{med_box}
     </update>
     
-    <!-- 시리얼 등록 -->
-<!--     <update id="updateSerial">
-        update t_medicine set med_serial=#{user_id} where user_id=#{user_id}
-    </update> -->
     
 	<!-- <update id="mediBoxUpdateW" parameterType="kr.boksun.mapper.MedicineVO">
 	    update t_medicine 

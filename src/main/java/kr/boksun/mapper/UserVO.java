@@ -12,7 +12,6 @@ import lombok.ToString;
 public class UserVO {
 	
 	private String user_id;
-	private String user_pw;
 	private String user_name;
 	private String user_birthdate;
 	private String user_gender;
@@ -20,5 +19,7 @@ public class UserVO {
 	private String user_addr;
 	private String user_phone;
 	private String worker_id;
+	private String user_empn;
+	private String user_access;
 
 }

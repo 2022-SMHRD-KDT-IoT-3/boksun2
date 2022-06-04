@@ -17,6 +17,6 @@ public interface UserMapper {
 	
 	public UserVO userChoice(String user_id);  // 장애인 선택 조회
 
-	public void serialJoin(UserVO vo);  // 시리얼 번호 회원가입
+
 
 }
