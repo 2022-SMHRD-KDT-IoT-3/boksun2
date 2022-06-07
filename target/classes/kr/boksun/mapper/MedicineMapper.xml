@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.boksun.mapper.MedicineMapper">
     
-	<!-- 장애인이 직접 등록 -->
+	<!-- 장애인이 직접 약 등록 -->
     <update id="mediBoxUpdate" parameterType="kr.boksun.mapper.MedicineVO">
         update t_medicine 
         set med_name=#{med_name}, med_alarm=#{med_alarm}
 		where user_id=#{user_id} and med_box=#{med_box}
     </update>
     
-    
-	<!-- <update id="mediBoxUpdateW" parameterType="kr.boksun.mapper.MedicineVO">
+    <!-- 복지사가 장애인 약 등록 -->
+    <update id="mediBoxUpdateW" parameterType="kr.boksun.mapper.MedicineVO">
 	    update t_medicine 
 	    set med_name=#{med_name}, med_hosp=#{med_hosp}, med_way=#{med_way}, med_times=#{med_times}, 
 	    	med_date=#{med_date}, med_alarm=#{med_alarm}, med_memo=#{med_memo}
 		where user_id=#{user_id} and med_box=#{med_box}
-    </update>  -->
+    </update>  
     
 	
-	<!-- 보관함 조회 -->
+	<!-- 보관함 사용 조회 -->
 	<select id="mediBoxSelect" parameterType="String" resultType="kr.boksun.mapper.MedicineVO">
 	    select	med_seq, user_id, med_box, NVL(med_name, 0) med_name, 
 	    		NVL(med_hosp, 0) med_hosp,  NVL(med_way, 0) med_way, NVL(med_times, 0) med_times, med_date, 
@@ -26,6 +26,14 @@
 	    from t_medicine where user_id=#{user_id}
 	</select>
     
+	
+	<!-- 보관함 정보 조회 -->
+	<select id="mediBoxInfoSelect" parameterType="kr.boksun.mapper.MedicineVO" resultType="kr.boksun.mapper.MedicineVO">
+	    	    select	med_seq, user_id, med_box, NVL(med_name, 0) med_name, 
+	    		NVL(med_hosp, 0) med_hosp,  NVL(med_way, 0) med_way, NVL(med_times, 0) med_times, med_date, 
+	    		NVL(med_alarm, 0) med_alarm, med_update, NVL(med_memo, 0) med_memo
+	    from t_medicine where user_id=#{user_id} and med_box=#{med_box}
+	</select>
     
     
 </mapper>

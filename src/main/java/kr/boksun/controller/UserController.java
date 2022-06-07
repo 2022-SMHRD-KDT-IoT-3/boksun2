@@ -30,7 +30,7 @@ public class UserController {
 
 	// 장애인 회원가입 요청
 	@RequestMapping("/joinUserInsert.do")
-	public @ResponseBody UserVO joinUserInsert(UserVO vo, HttpServletResponse response) throws IOException {
+	public @ResponseBody String joinUserInsert(UserVO vo, HttpServletResponse response) throws IOException {
 		System.out.println("장애인 회원가입 요청");
 		System.out.println(vo.toString());
 		mapper.joinUserInsert(vo);
@@ -38,7 +38,7 @@ public class UserController {
 		PrintWriter out = response.getWriter();
 		out.print("join_user_succeed");
 
-		return vo;
+		return null;
 	}
 
 	// 장애인 로그인 조회
