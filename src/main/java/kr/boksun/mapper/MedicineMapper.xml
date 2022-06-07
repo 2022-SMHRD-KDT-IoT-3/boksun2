@@ -18,6 +18,13 @@
     </update>  -->
     
 	
+	<!-- 보관함 조회 -->
+	<select id="mediBoxSelect" parameterType="String" resultType="kr.boksun.mapper.MedicineVO">
+	    select	med_seq, user_id, med_box, NVL(med_name, 0) med_name, 
+	    		NVL(med_hosp, 0) med_hosp,  NVL(med_way, 0) med_way, NVL(med_times, 0) med_times, med_date, 
+	    		NVL(med_alarm, 0) med_alarm, med_update, NVL(med_memo, 0) med_memo
+	    from t_medicine where user_id=#{user_id}
+	</select>
     
     
     

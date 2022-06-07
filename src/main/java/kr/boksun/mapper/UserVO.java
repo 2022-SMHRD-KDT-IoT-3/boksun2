@@ -21,5 +21,6 @@ public class UserVO {
 	private String worker_id;
 	private String user_empn;
 	private String user_access;
+	private String user_disease;
 
 }

@@ -22,6 +22,5 @@ public class MedicineVO {
 	private String med_alarm;
 	private String med_update;
 	private String med_memo;
-	private String med_log;
 	
 }

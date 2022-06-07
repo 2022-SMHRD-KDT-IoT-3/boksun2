@@ -10,9 +10,9 @@
         <choose>
             <when test="worker_id != null"> <!-- 복지사가 장애인 등록 -->
                 insert into t_user(user_id, user_name, user_birthdate, user_gender, 
-                					user_joindate, user_addr, user_phone, worker_id, user_empn) 
+                					user_addr, user_phone, worker_id, user_empn, user_disease) 
        			values(#{user_id}, #{user_name}, #{user_birthdate}, #{user_gender},
-       								#{user_joindate}, #{user_addr}, #{user_phone}, ${worker_id}, #{user_empn})
+       								#{user_addr}, #{user_phone}, ${worker_id}, #{user_empn}, #{user_disease})
             </when>
             <when test="worker_id == null"> <!-- 장애인이 직접 회원가입  -->
                 insert into t_user(user_id, user_name, user_empn) 
