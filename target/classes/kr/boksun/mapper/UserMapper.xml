@@ -39,6 +39,7 @@
         select 	* 
         from 	t_user 
         where 	worker_id = #{worker_id}
+        order by user_joindate
     </select>
     
     
