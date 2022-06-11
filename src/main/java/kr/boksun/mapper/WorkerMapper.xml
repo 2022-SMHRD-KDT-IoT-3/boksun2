@@ -2,17 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.boksun.mapper.WorkerMapper">
     
+    <!-- 복지사 아이디 중복 체크 -->
     <select id="idCheckWorker" parameterType="String" resultType="kr.boksun.mapper.WorkerVO">
-        select * from t_worker where worker_id = #{worker_id}
+        select 	* 
+        from 	t_worker 
+        where 	worker_id = #{worker_id}
 	</select>
     
+    <!-- 복지사 회원가입 -->
     <insert id="joinWorkerInsert" parameterType="kr.boksun.mapper.WorkerVO">
-        insert into t_worker(worker_id, worker_pw, worker_name, worker_license, worker_organization, worker_tel, worker_phone, worker_area) 
-        values(#{worker_id}, #{worker_pw}, #{worker_name}, #{worker_license}, #{worker_organization}, #{worker_tel}, #{worker_phone}, #{worker_area})
+        insert into 	t_worker(worker_id, worker_pw, worker_name, worker_license, 
+        				worker_organization, worker_tel, worker_phone, worker_area) 
+        values			(#{worker_id}, #{worker_pw}, #{worker_name}, #{worker_license}, 
+        				#{worker_organization}, #{worker_tel}, #{worker_phone}, #{worker_area})
     </insert>
     
+    <!-- 복지사 로그인 -->
     <select id="loginWorkerSelect" parameterType="kr.boksun.mapper.WorkerVO" resultType="kr.boksun.mapper.WorkerVO">
-        select * from t_worker where worker_id=#{worker_id} and worker_pw=#{worker_pw}
+        select 	* 
+        from 	t_worker 
+        where 	worker_id=#{worker_id} and worker_pw=#{worker_pw}
     </select>
     
     

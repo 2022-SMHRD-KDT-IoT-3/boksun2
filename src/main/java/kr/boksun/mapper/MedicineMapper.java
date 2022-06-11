@@ -18,5 +18,8 @@ public interface MedicineMapper {
 
 	// 보관함 정보 조회
 	public MedicineVO mediBoxInfoSelect(MedicineVO mvo);
+	
+	// 보관함 음성 출력
+	public MedicineVO mediAlarmSelect(MedicineVO avo);
 
 }

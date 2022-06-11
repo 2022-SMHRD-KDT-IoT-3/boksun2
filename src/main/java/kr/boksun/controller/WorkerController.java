@@ -14,18 +14,12 @@ import kr.boksun.mapper.UserVO;
 import kr.boksun.mapper.WorkerMapper;
 import kr.boksun.mapper.WorkerVO;
 
-@Controller
+@Controller 
 public class WorkerController {
 
 	@Inject
 	private WorkerMapper mapper;
 
-	/*
-	 * // 복지사 회원가입 페이지
-	 * 
-	 * @RequestMapping("/joinWorker.do") public void joinWorker() {
-	 * System.out.println("복지사 회원가입 페이지"); }
-	 */
 
 	// 복지사 아이디 중복 체크
 	@RequestMapping("/idCheckWorker.do")

@@ -23,4 +23,22 @@ public class MedicineVO {
 	private String med_update;
 	private String med_memo;
 	
+	public MedicineVO(String user_id, String med_box) {
+	      super();
+	      this.user_id = user_id;
+	      this.med_box = med_box;
+	}
+
+	public MedicineVO(String user_id, String med_box, String med_alarm) {
+	      super();
+	      this.user_id = user_id;
+	      this.med_box = med_box;
+	      this.med_alarm = med_alarm;
+	 }
+
+	 public MedicineVO(String user_id) {
+	      super();
+	      this.user_id = user_id;
+	 }
+
 }

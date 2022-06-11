@@ -2,36 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.boksun.mapper.UserMapper">
     
+    <!-- 장애인 아이디 중복 체크 -->
     <select id="idCheckUser" parameterType="String" resultType="kr.boksun.mapper.UserVO">
-	    select * from t_user where user_id = #{user_id}
+	    select 	* 
+	    from 	t_user 
+	    where 	user_id = #{user_id}
 	</select>
     
+    
+    <!-- 장애인 회원가입 -->
     <insert id="joinUserInsert" parameterType="kr.boksun.mapper.UserVO">
         <choose>
             <when test="worker_id != null"> <!-- 복지사가 장애인 등록 -->
                 insert into t_user
-       			values(#{user_id}, #{user_name}, #{user_birthdate}, #{user_gender}, sysdate,
-       				#{user_addr}, #{user_phone}, #{worker_id}, #{user_empn}, #{user_access}, #{user_disease})
+       			values		(#{user_id}, #{user_name}, #{user_birthdate}, #{user_gender}, sysdate,
+       						#{user_addr}, #{user_phone}, #{worker_id}, #{user_empn}, #{user_access}, #{user_disease})
             </when>
             <when test="worker_id == null"> <!-- 장애인이 직접 회원가입  -->
                 insert into t_user(user_id, user_name, user_empn) 
-       			values(#{user_id}, #{user_name}, #{user_empn})
+       			values		(#{user_id}, #{user_name}, #{user_empn})
             </when>
         </choose>
     </insert>
     
+    
+    <!-- 장애인 로그인 -->
     <select id="loginUserSelect" parameterType="kr.boksun.mapper.UserVO" resultType="kr.boksun.mapper.UserVO">
-        select * from t_user where user_id = #{user_id}
+        select 	* 
+        from 	t_user 
+        where 	user_id = #{user_id}
     </select>
     
+    
+    <!-- 장애인 전체 목록 보기 -->
     <select id="userList" parameterType="String" resultType="kr.boksun.mapper.UserVO">
-        select * from t_user where worker_id = #{worker_id}
+        select 	* 
+        from 	t_user 
+        where 	worker_id = #{worker_id}
     </select>
     
-    <!-- 장애인 목록에서 장애인 선택 -->
+    
+    <!-- 장애인 선택 조회(목록에서 선택) -->
     <select id="userChoice" parameterType="String" resultType="kr.boksun.mapper.UserVO">
-        select * from t_user where user_id = #{user_id}
+        select 	* 
+        from 	t_user 
+        where 	user_id = #{user_id}
     </select>
     
     
+    <!-- 장애인 정보 수정 -->
+    <update id="updateUser" parameterType="kr.boksun.mapper.UserVO">
+        update 	t_user 
+        set 	user_id=#{user_id}, user_name=#{user_name}, user_phone=#{user_phone},
+        		user_empn=#{user_empn}, user_birthdate=#{user_birthdate}, user_addr=#{user_addr}
+        where 	user_id = #{user_id}
+    </update>
+   
+    
+    <!-- 약보관함 최근 접촉시간 -->
+    <update id="userAccessUpdate" parameterType="kr.boksun.mapper.UserVO">
+       update 	t_user 
+       set 		user_access = #{user_access}
+       where 	user_id = #{user_id}
+    </update>
+    
+    
+    <!-- 긴급버튼 -->
+    <select id="mediWarning" parameterType="kr.boksun.mapper.UserVO" resultType="kr.boksun.mapper.UserVO">
+        select 	user_name
+        from 	t_user
+        where 	user_id=#{user_id}
+    </select>
+    
+   
 </mapper>

@@ -22,5 +22,16 @@ public class UserVO {
 	private String user_empn;
 	private String user_access;
 	private String user_disease;
+	
+    public UserVO(String user_id, String user_access) {
+    	super();
+    	this.user_id = user_id;
+    	this.user_access = user_access;
+	}
+
+	public UserVO(String user_id) {
+	    super();
+	    this.user_id = user_id;
+	}
 
 }

@@ -2,39 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.boksun.mapper.MedicineMapper">
     
-	<!-- 장애인이 직접 약 등록 -->
-    <update id="mediBoxUpdate" parameterType="kr.boksun.mapper.MedicineVO">
-        update t_medicine 
-        set med_name=#{med_name}, med_alarm=#{med_alarm}
-		where user_id=#{user_id} and med_box=#{med_box}
-    </update>
     
-    <!-- 복지사가 장애인 약 등록 -->
+	<!-- 장애인이 보관함 업데이트 -->
+	<update id="mediBoxUpdate" 	parameterType="kr.boksun.mapper.MedicineVO">
+        update 	t_medicine 
+        set 	med_name=nvl(#{med_name}, ' '), med_alarm=nvl(#{med_alarm}, ' '),
+        		med_hosp=nvl(#{med_hosp}, ' '), med_way=nvl(#{med_way}, ' '), med_times=nvl(#{med_times}, ' '), 
+				med_date=nvl(#{med_date}, sysdate),	med_memo=nvl(#{med_memo}, ' ')
+		where 	user_id=#{user_id} and med_box=#{med_box}
+    </update>
+     
+	
+    <!-- 복지사가 보관함 업데이트 -->
     <update id="mediBoxUpdateW" parameterType="kr.boksun.mapper.MedicineVO">
-	    update t_medicine 
-	    set med_name=#{med_name}, med_hosp=#{med_hosp}, med_way=#{med_way}, med_times=#{med_times}, 
-	    	med_date=#{med_date}, med_alarm=#{med_alarm}, med_memo=#{med_memo}
-		where user_id=#{user_id} and med_box=#{med_box}
+	    update	t_medicine 
+	    set 	med_name=nvl(#{med_name}, ' '), med_hosp=nvl(#{med_hosp}, ' '), med_way=nvl(#{med_way}, ' '), med_times=nvl(#{med_times}, ' '), 
+	    		med_date=nvl(#{med_date}, sysdate), med_alarm=nvl(#{med_alarm}, ' '), med_memo=nvl(#{med_memo}, ' ')
+		where 	user_id=#{user_id} and med_box=#{med_box}
     </update>  
     
 	
 	<!-- 보관함 사용 조회 -->
-	<select id="mediBoxSelect" parameterType="String" resultType="kr.boksun.mapper.MedicineVO">
-	    select med_seq, user_id, med_box, NVL(med_name, '0') as med_name, 
-	    	   NVL(med_hosp, '0') as med_hosp, NVL(med_way, '0') as med_way, NVL(med_times, '0') as med_times, 
-	    	   med_date, NVL(med_alarm, '0') as med_alarm, med_update, NVL(med_memo, '0') as med_memo
-	      from t_medicine 
-	     where user_id=#{user_id}
+	<select id="mediBoxSelect" 	parameterType="String"	resultType="kr.boksun.mapper.MedicineVO">
+	    select 	med_seq, user_id, med_box, NVL(med_name, ' ') as med_name, 
+	    	   	NVL(med_hosp, ' ') as med_hosp, NVL(med_way, ' ') as med_way, NVL(med_times, ' ') as med_times, 
+	    	   	med_date, NVL(med_alarm, ' ') as med_alarm, med_update, NVL(med_memo, ' ') as med_memo
+	    from 	t_medicine 
+	    where 	user_id=#{user_id}
 	</select>
     
 	
 	<!-- 보관함 정보 조회 -->
-	<select id="mediBoxInfoSelect" parameterType="kr.boksun.mapper.MedicineVO" resultType="kr.boksun.mapper.MedicineVO">
-	    	    select	med_seq, user_id, med_box, NVL(med_name, 0) med_name, 
-	    		NVL(med_hosp, 0) med_hosp,  NVL(med_way, 0) med_way, NVL(med_times, 0) med_times, med_date, 
-	    		NVL(med_alarm, 0) med_alarm, med_update, NVL(med_memo, 0) med_memo
-	    from t_medicine where user_id=#{user_id} and med_box=#{med_box}
+	<select id="mediBoxInfoSelect" 	parameterType="kr.boksun.mapper.MedicineVO"  resultType="kr.boksun.mapper.MedicineVO">
+	    select	med_seq, user_id, med_box, NVL(med_name, ' ') as med_name, NVL(med_hosp, ' ') as med_hosp,
+	    		NVL(med_way, ' ') as med_way, NVL(med_times, ' ') as med_times, NVL(TO_CHAR(med_date, 'yyyy-mm-dd'), sysdate) as med_date, 
+	    		NVL(med_alarm, ' ') as med_alarm, med_update, NVL(med_memo, ' ') as med_memo
+	    from 	t_medicine 
+	    where 	user_id=#{user_id} and med_box=#{med_box}
 	</select>
+	
+	
+	<!-- 보관함 알람 출력 -->
+	<select id="mediAlarmSelect" parameterType="kr.boksun.mapper.MedicineVO" resultType="kr.boksun.mapper.MedicineVO">
+        select 	user_id, med_box, NVL(med_alarm,'#') as med_alarm
+        from 	t_medicine
+        where 	user_id=#{user_id} and med_box=#{med_box}
+    </select>
+	
     
     
 </mapper>
